@@ -38,9 +38,9 @@ class CartBoardController extends GetxController {
     items.value = await ItemRepo().getItems(categoryId);
   }
 
-  void addItemToCart(Item model){
-    cartItems.add(CartModel.fromItem(model, 1));
-    totalBill.value = totalBill.value + model.pricePerUnit;
+  void addItemToCart(Item model, int qty){
+    cartItems.add(CartModel.fromItem(model, qty));
+    totalBill.value = totalBill.value + (model.pricePerUnit * qty);
   }
 
   void saveAndPrint(){

@@ -49,8 +49,8 @@ class RecieptManager {
               return Row(children: [
                 Expanded(flex: 4, child: Text(model.name, style: TextStyle(fontSize: baseSize))),
                 Expanded(child: Text(model.quantity.toString(), style: TextStyle(fontSize: baseSize))),
-                Expanded(flex: 2, child: Text(model.rate.toCurrency, style: TextStyle(fontSize: baseSize))),
-                Expanded(flex: 2, child: Text((model.rate * model.quantity).toCurrency, style: TextStyle(fontSize: baseSize))),
+                Expanded(flex: 2, child: Text(model.rate.format, style: TextStyle(fontSize: baseSize))),
+                Expanded(flex: 2, child: Text((model.rate * model.quantity).format, style: TextStyle(fontSize: baseSize))),
               ]);
             }, itemCount: list.length),
 
@@ -60,12 +60,12 @@ class RecieptManager {
 
             Row(mainAxisAlignment:MainAxisAlignment.spaceBetween, children: [
               Text("Sub Total", style: TextStyle(fontSize: baseSize)),
-              Text(total.toCurrency, style: TextStyle(fontSize: baseSize))
+              Text(total.formatRound, style: TextStyle(fontSize: baseSize))
             ]),
             SizedBox(height: baseSize),
             Row(mainAxisAlignment:MainAxisAlignment.spaceBetween, children: [
-              Text("Total Price", style: TextStyle(fontSize: baseSize * 2, fontWeight: FontWeight.bold)),
-              Text(total.round().toCurrency, style: TextStyle(fontSize: baseSize * 2, fontWeight: FontWeight.bold))
+              Text("Total Price", style: TextStyle(fontSize: baseSize * 1.2, fontWeight: FontWeight.bold)),
+              Text(total.round().formatRound, style: TextStyle(fontSize: baseSize * 1.2, fontWeight: FontWeight.bold))
             ]),
             SizedBox(height: baseSize * 4),
             Row(children: [
@@ -79,12 +79,18 @@ class RecieptManager {
 
     Get.dialog(PdfPreview(
       allowSharing: false,
+      dynamicLayout: false,
       initialPageFormat: PdfPageFormat.roll80,
       pageFormats: const <String, PdfPageFormat>{
         'Roll 80': PdfPageFormat.roll80,
         'Roll 57': PdfPageFormat.roll57,
       } ,
-      build: (format) => doc.save(),
+        maxPageWidth: 200,
+
+        dpi: 600.0,
+      build: (format){
+        return doc.save();
+      }
     ));
     // await Printing.layoutPdf(onLayout: (format) => doc.save(),);
   }
