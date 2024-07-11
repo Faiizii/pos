@@ -72,7 +72,9 @@ class RecieptManager {
               Text("Payment Method: ", style: TextStyle(fontSize: baseSize)),
               SizedBox(width: baseSize*3),
               Text(paymentType.name.toUpperCase(), style: TextStyle(fontSize: baseSize * 1.2, fontWeight: FontWeight.bold))
-            ])
+            ]),
+
+            BarcodeWidget(data: "1234523", barcode: Barcode.qrCode(typeNumber: 40), height: 40, width: 40)
           ]); // Center
         }
     ));
@@ -87,11 +89,12 @@ class RecieptManager {
       } ,
         maxPageWidth: 200,
 
-        dpi: 600.0,
+        dpi: 220.0,
       build: (format){
         return doc.save();
       }
     ));
     // await Printing.layoutPdf(onLayout: (format) => doc.save(),);
   }
+
 }
