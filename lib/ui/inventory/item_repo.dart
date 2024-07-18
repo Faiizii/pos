@@ -12,20 +12,23 @@ class ItemRepo {
 
   Future<void> insertCategoryAndItem({required String itemName, required String unit, required double pricePerUnit, required CategoryModel category}) async {
     final db = await _db.getDatabase();
-    Batch batch = db.batch();
     int catId = category.id;
-    if(catId == 0){
-      batch.insert(CategoryTable.tableName, category.toMap());
-      catId = (await batch.commit()).first as int;
-  }
-    // Commit the batch
-    batch.insert(ItemTable.tableName, {
+    var itemMap = {
       'name': itemName,
       'unit': unit,
-      'price_per_unit': pricePerUnit,
-      'categoryID': catId,
-    });
-    await batch.apply();
+      'price_per_unit': pricePerUnit
+    };
+
+    if(catId == 0){
+      await db.transaction((txn) async {
+        catId = await txn.insert(CategoryTable.tableName, category.toMap());
+        itemMap['categoryID'] = catId;
+        await txn.insert(ItemTable.tableName, itemMap);
+      });
+    }else {
+      itemMap['categoryID'] = catId;
+      await db.insert(ItemTable.tableName, itemMap);
+    }
     await db.close();
   }
 
@@ -113,19 +116,6 @@ class ItemRepo {
     });
     await db.close();
     return list;
-  }
-
-  // Update a category in the getDatabase()
-  Future<int> updateCategory(CategoryModel category) async {
-    final db = await _db.getDatabase();
-    var result =  await db.update(
-        CategoryTable.tableName,
-      category.toMap(),
-      where: 'id = ?',
-      whereArgs: [category.id],
-    );
-    await db.close();
-    return result;
   }
 
   // Delete a category from the getDatabase()

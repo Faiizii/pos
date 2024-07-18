@@ -15,33 +15,32 @@ class SaleRepository {
   // Insert a sale into the getDatabase()
   Future<int> insertSale({required String paymentMethod, required discount, required double saleAmount, required List<CartModel> items}) async {
     final db = await _dbHelper.getDatabase();
-    var batch = db.batch();
+    int orderId = 0;
+    await db.transaction((trnx) async {
+      orderId = await trnx.insert(SaleTable.tableName, {
+        'paymentMethod': paymentMethod,
+        'discount': discount,
+        'saleAmount': saleAmount,
+        'customerName': "-",
+        'customerPhoneNumber': "-",
+        'shopID': "SHP00001", // main shopID
+      });
 
-    batch.insert(SaleTable.tableName, {
-      'paymentMethod': paymentMethod,
-      'discount': discount,
-      'saleAmount': saleAmount,
-      'customerName': "-",
-      'customerPhoneNumber': "-",
-      'shopID': "SHP00001", // main shopID
+      for(CartModel model in items){
+
+        await trnx.insert(SaleItemTable.tableName, {
+          "itemID": model.item.id,
+          "itemPrice": model.item.pricePerUnit,
+          "itemUnit": model.item.unit,
+          "quantity": model.quantity,
+          "categoryID": model.item.categoryId,
+          "saleID": orderId
+        });
+      }
     });
 
-    int id = int.tryParse('${(await batch.commit()).firstOrNull ?? 0}') ?? 0;
-
-    for(CartModel model in items){
-
-      batch.insert(SaleItemTable.tableName, {
-        "itemID": model.item.id,
-        "itemPrice": model.item.pricePerUnit,
-        "itemUnit": model.item.unit,
-        "quantity": model.quantity,
-        "categoryID": model.item.categoryId,
-        "saleID": id
-      });
-    }
-
     await db.close();
-    return id;
+    return orderId;
   }
 
   // Retrieve all sales from the getDatabase()
