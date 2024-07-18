@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 import 'package:pos/databse/model/category_model.dart';
 import 'package:pos/databse/model/item_model.dart';
+import 'package:pos/databse/model/sale_model.dart';
 import 'package:pos/print/print_receipt.dart';
 import 'package:pos/ui/cart/cart_model.dart';
+import 'package:pos/ui/cart/sale_repo.dart';
 import 'package:pos/ui/inventory/item_repo.dart';
 
 enum PaymentType {
@@ -18,6 +20,7 @@ class CartBoardController extends GetxController {
   Rx<PaymentType> paymentType = Rx(PaymentType.cash);
 
   RxDouble totalBill = 0.0.obs;
+  double discount = 0.0;
 
   @override
   void onInit() {
@@ -45,8 +48,9 @@ class CartBoardController extends GetxController {
     totalBill.value = totalBill.value + (model.pricePerUnit * qty);
   }
 
-  void saveAndPrint(){
-    RecieptManager().printReceipt(cartItems,"RMS00032", totalBill.value, paymentType.value);
+  void saveAndPrint() async {
+    int id = await SaleRepository().insertSale(paymentMethod: paymentType.value.name, discount: discount, saleAmount: totalBill.value, items: cartItems);
+    RecieptManager().printReceipt(cartItems,"RMS000$id", totalBill.value, discount, paymentType.value);
   }
 
   void deleteCategory(int id) async {

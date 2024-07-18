@@ -2,11 +2,10 @@ import 'package:pos/databse/model/item_model.dart';
 
 class CartModel {
 
-  final String name, unit;
+  final Item item;
   final int quantity;
-  final double rate;
 
-  CartModel({required this.name, required this.unit, required this.quantity, required this.rate});
+  CartModel({required this.item, required this.quantity, });
 
-  factory CartModel.fromItem(Item model, int qnt) => CartModel(name: model.name, unit: model.unit, quantity: qnt, rate: model.pricePerUnit);
+  factory CartModel.fromItem(Item model, int qnt) => CartModel(item: model, quantity: qnt);
 }

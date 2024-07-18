@@ -103,14 +103,6 @@ class ItemRepo {
     await db.close();
     return result;
   }
-  
-  // Insert a category into the getDatabase()
-  Future<int> insertCategory(CategoryModel category) async {
-    final db = await _db.getDatabase();
-    var id =  await db.insert(CategoryTable.tableName, category.toMap());
-    await db.close();
-    return id;
-  }
 
   // Retrieve all categories from the getDatabase()
   Future<List<CategoryModel>> getCategories() async {

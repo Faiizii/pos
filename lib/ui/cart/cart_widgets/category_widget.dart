@@ -25,6 +25,7 @@ class ItemCategoryWidget extends GetView<CartBoardController> {
                 child: Text("Add Item", style: Get.textTheme.labelSmall,),
               ),
             ),
+            SizedBox(height: 48,),
             Expanded(
               child: ObxValue((rx) {
                 return ListView.builder(

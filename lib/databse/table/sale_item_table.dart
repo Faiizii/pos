@@ -8,6 +8,7 @@ class SaleItemTable {
       "id INTEGER PRIMARY KEY AUTOINCREMENT,"
       "itemID INTEGER NOT NULL,"
       "itemPrice DECIMAL(10, 2) NOT NULL,"
+      "quantity DECIMAL(10, 2) NOT NULL,"
       "itemUnit VARCHAR(10) NOT NULL,"
       "categoryID INTEGER NOT NULL,"
       "saleID INTEGER NOT NULL,"

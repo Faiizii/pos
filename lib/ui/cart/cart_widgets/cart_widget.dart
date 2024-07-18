@@ -22,7 +22,7 @@ class CartWidget extends GetView<CartBoardController> {
               itemCount: rx.length,
               itemBuilder: (context, index) {
                 CartModel model = rx[index];
-                return _ItemListTile(index: "${index+1}", itemName: model.name, quantity: '${model.quantity}${model.unit}',totalPrice: (model.quantity * model.rate).format,);
+                return _ItemListTile(index: "${index+1}", itemName: model.item.name, quantity: '${model.quantity}${model.item.unit}',totalPrice: (model.quantity * model.item.pricePerUnit).format,);
               },
             );
           }, controller.cartItems)),
@@ -33,10 +33,16 @@ class CartWidget extends GetView<CartBoardController> {
             }, controller.totalBill)
           ],),
           const SizedBox(height: 32,),
-          const Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text("Discount (SAR)"),
-            // TextField(),
-
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const Text("Discount (SAR)"),
+            const SizedBox(width: 50,),
+            Expanded(child: TextField(
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(hintText: "0.0"),
+              onChanged: (value){
+                controller.discount = double.tryParse(value) ?? 0.0;
+            },),),
+            const Expanded(child: SizedBox()),
           ],),
           Row(mainAxisSize: MainAxisSize.min, children: [
             const Text("Payment Method"),

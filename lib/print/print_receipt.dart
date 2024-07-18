@@ -7,7 +7,7 @@ import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
 class RecieptManager {
-  void printReceipt(List<CartModel> list, String invoiceNo, double total,
+  void printReceipt(List<CartModel> list, String invoiceNo, double total, double discount,
       PaymentType paymentType) async {
     final doc = Document();
 
@@ -76,19 +76,19 @@ class RecieptManager {
                   return Row(children: [
                     Expanded(
                         flex: 4,
-                        child: Text(model.name,
+                        child: Text(model.item.name,
                             style: TextStyle(fontSize: baseSize))),
                     Expanded(
                       flex:2,
-                        child: Text('${model.quantity}${model.unit}',
+                        child: Text('${model.quantity}${model.item.unit}',
                             style: TextStyle(fontSize: baseSize))),
                     Expanded(
                         flex: 2,
-                        child: Text(model.rate.format,
+                        child: Text(model.item.pricePerUnit.format,
                             style: TextStyle(fontSize: baseSize))),
                     Expanded(
                         flex: 2,
-                        child: Text((model.rate * model.quantity).format,
+                        child: Text((model.item.pricePerUnit * model.quantity).format,
                             style: TextStyle(fontSize: baseSize))),
                   ]);
                 },
@@ -101,11 +101,19 @@ class RecieptManager {
               SizedBox(width: baseSize*3)
             ]),
             SizedBox(height: baseSize),
+            if(discount > 0) ...[
+              Row( children: [
+                Expanded(child: Text("Discount (SAR)", style: TextStyle(fontSize: baseSize)),),
+                Text(discount.format, style: TextStyle(fontSize: baseSize)),
+                SizedBox(width: baseSize*3)
+              ]),
+              SizedBox(height: baseSize),
+            ],
             Row( children: [
               Expanded(child: Text("Total Price (SAR)",
                   style: TextStyle(
                       fontSize: baseSize * 1.2, fontWeight: FontWeight.bold)),),
-              Text(total.round().formatRound,
+              Text((total.round() - discount.round()).formatRound,
                   style: TextStyle(
                       fontSize: baseSize * 1.2, fontWeight: FontWeight.bold)),
               SizedBox(width: baseSize*3)

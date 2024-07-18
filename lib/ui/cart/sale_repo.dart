@@ -1,7 +1,11 @@
 
 
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:pos/databse/data_storage.dart';
+import 'package:pos/databse/model/item_model.dart';
+import 'package:pos/databse/table/sale_item_table.dart';
 import 'package:pos/databse/table/sale_table.dart';
+import 'package:pos/ui/cart/cart_model.dart';
 
 import '../../databse/model/sale_model.dart';
 
@@ -9,9 +13,33 @@ class SaleRepository {
   final DataStorage _dbHelper = DataStorage();
 
   // Insert a sale into the getDatabase()
-  Future<int> insertSale(Sale sale) async {
+  Future<int> insertSale({required String paymentMethod, required discount, required double saleAmount, required List<CartModel> items}) async {
     final db = await _dbHelper.getDatabase();
-    var id =  await db.insert(SaleTable.tableName, sale.toMap());
+    var batch = db.batch();
+
+    batch.insert(SaleTable.tableName, {
+      'paymentMethod': paymentMethod,
+      'discount': discount,
+      'saleAmount': saleAmount,
+      'customerName': "-",
+      'customerPhoneNumber': "-",
+      'shopID': "SHP00001", // main shopID
+    });
+
+    int id = int.tryParse('${(await batch.commit()).firstOrNull ?? 0}') ?? 0;
+
+    for(CartModel model in items){
+
+      batch.insert(SaleItemTable.tableName, {
+        "itemID": model.item.id,
+        "itemPrice": model.item.pricePerUnit,
+        "itemUnit": model.item.unit,
+        "quantity": model.quantity,
+        "categoryID": model.item.categoryId,
+        "saleID": id
+      });
+    }
+
     await db.close();
     return id;
   }

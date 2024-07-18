@@ -13,12 +13,18 @@ base class DataStorage {
       path,
       version: 2,
       onCreate: (db,version){
+        db.delete(SaleTable.createStatement);
+        db.delete(SaleItemTable.createStatement);
+
         db.execute(ItemTable.createStatement);
         db.execute(CategoryTable.createStatement);
         db.execute(SaleTable.createStatement);
         db.execute(SaleItemTable.createStatement);
       },
       onUpgrade: (db, oldVersion, newVersion) {
+        db.delete(SaleTable.createStatement);
+        db.delete(SaleItemTable.createStatement);
+
         db.execute(ItemTable.createStatement);
         db.execute(CategoryTable.createStatement);
         db.execute(SaleTable.createStatement);

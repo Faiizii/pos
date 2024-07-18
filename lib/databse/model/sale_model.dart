@@ -22,9 +22,7 @@ class Sale {
   // Convert a Sale object into a Map object
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'payment_method': paymentMethod,
-      'created_at': createdAt,
       'discount': discount,
       'sale_amount': saleAmount,
       'customer_name': customerName,
