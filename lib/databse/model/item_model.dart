@@ -30,11 +30,11 @@ class Item {
   // Convert a Map object into an Item object
   factory Item.fromMap(Map<String, dynamic> map) {
     return Item(
-      id: map['id'] ?? 0,
+      id: int.tryParse('${map['id']}') ?? 0,
       name: map['name'],
       unit: map['unit'],
-      pricePerUnit: map['price_per_unit'],
-      categoryId: map['categoryID'] ?? 0,
+      pricePerUnit: double.tryParse('${map['price_per_unit']}') ?? 0.0,
+      categoryId: int.tryParse('${map['categoryID']}') ?? 0,
       createdAt: map['created_at'],
       updatedAt: map['updated_at'],
     );

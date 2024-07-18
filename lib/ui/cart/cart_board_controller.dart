@@ -26,6 +26,8 @@ class CartBoardController extends GetxController {
   }
   void refreshScreen() async {
     _loadItems();
+    cartItems.clear();
+    totalBill.value = 0;
   }
 
   void _loadItems() async {

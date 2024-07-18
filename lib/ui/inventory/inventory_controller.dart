@@ -37,12 +37,12 @@ class InventoryController extends GetxController {
   void saveItem() async {
     await ItemRepo().insertCategoryAndItem(itemName: cName.text, category: selectedCategory ?? CategoryModel(id: 99999, name: "No Category"), unit: cUnit.text, pricePerUnit: double.tryParse(cPrice.text) ?? 0.0);
     Get.back();
-    Get.showSnackbar(const GetSnackBar(message: "Item added successfully!",));
+    Get.showSnackbar(const GetSnackBar(message: "Item added successfully!", duration: Duration(seconds: 2),));
 
   }
 
   void deleteItem(int id) async {
     await ItemRepo().deleteItem(id);
-    Get.showSnackbar(const GetSnackBar(message: "Item deleted Successfully"));
+    Get.showSnackbar(const GetSnackBar(message: "Item deleted Successfully", duration: Duration(seconds: 2),));
   }
 }

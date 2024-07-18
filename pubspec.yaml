@@ -37,6 +37,7 @@ dependencies:
   get: ^4.6.6
   printing: ^5.13.1
   msix: ^3.16.7
+  sqflite_common_ffi:
 
 
   # Storage
@@ -100,5 +101,5 @@ msix_config:
   publisher_display_name: Muhammad Faizan
   identity_name: com.faiizii.meatshop
   msix_version: 1.0.0.0
-  logo_path: /Users/saraalruwais/Desktop/projects/learning/pos/images/logo.jpeg
+  logo_path: E:/pos/images/logo.jpeg
   capabilities: usb

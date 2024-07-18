@@ -27,9 +27,9 @@ class CartWidget extends GetView<CartBoardController> {
             );
           }, controller.cartItems)),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text("Total", style: Get.textTheme.headlineLarge,),
+            Text("Total", style: Get.textTheme.titleMedium,),
             ObxValue((rx){
-              return Text(rx.value.toCurrency, style: Get.textTheme.headlineLarge,);
+              return Text(rx.value.toCurrency, style: Get.textTheme.titleMedium,);
             }, controller.totalBill)
           ],),
           const SizedBox(height: 32,),
@@ -72,10 +72,10 @@ class _ItemListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(children: [
-        Expanded(child: Text(index, style: isHeadline ? Get.textTheme.titleMedium : Get.textTheme.labelSmall)),
-        Expanded(flex: 2, child: Text(itemName, style: isHeadline ? Get.textTheme.titleMedium : Get.textTheme.bodySmall)),
-        Expanded(child: Text(quantity, style: isHeadline ? Get.textTheme.titleMedium : Get.textTheme.bodySmall)),
-        Expanded(child: Text(totalPrice, style: isHeadline ? Get.textTheme.titleMedium : Get.textTheme.bodySmall)),
+        Expanded(child: Text(index, style: isHeadline ? Get.textTheme.titleSmall : Get.textTheme.labelSmall)),
+        Expanded(flex: 2, child: Text(itemName, style: isHeadline ? Get.textTheme.titleSmall : Get.textTheme.bodySmall)),
+        Expanded(child: Text(quantity, style: isHeadline ? Get.textTheme.titleSmall : Get.textTheme.bodySmall)),
+        Expanded(child: Text(totalPrice, style: isHeadline ? Get.textTheme.titleSmall : Get.textTheme.bodySmall)),
       ],),
     );
   }
