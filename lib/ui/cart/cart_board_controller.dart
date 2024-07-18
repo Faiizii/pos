@@ -57,6 +57,6 @@ class CartBoardController extends GetxController {
     final repo = ItemRepo();
     await repo.deleteCategory(id);
     await repo.deleteItems(id);
-    refresh();
+    _loadItems();
   }
 }

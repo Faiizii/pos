@@ -44,5 +44,6 @@ class InventoryController extends GetxController {
   void deleteItem(int id) async {
     await ItemRepo().deleteItem(id);
     Get.showSnackbar(const GetSnackBar(message: "Item deleted Successfully", duration: Duration(seconds: 2),));
+    refreshData();
   }
 }
