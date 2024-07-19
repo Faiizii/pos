@@ -1,13 +1,10 @@
 
-
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:pos/databse/data_storage.dart';
-import 'package:pos/databse/model/item_model.dart';
-import 'package:pos/databse/table/sale_item_table.dart';
-import 'package:pos/databse/table/sale_table.dart';
+import 'package:pos/database/data_storage.dart';
+import 'package:pos/database/table/sale_item_table.dart';
+import 'package:pos/database/table/sale_table.dart';
 import 'package:pos/ui/cart/cart_model.dart';
 
-import '../../databse/model/sale_model.dart';
+import '../../database/model/sale_model.dart';
 
 class SaleRepository {
   final DataStorage _dbHelper = DataStorage();

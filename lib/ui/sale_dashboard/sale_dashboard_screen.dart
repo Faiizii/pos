@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos/databse/model/sale_model.dart';
+import 'package:pos/database/model/sale_model.dart';
 import 'package:pos/extensions/num_extension.dart';
 import 'package:pos/ui/sale_dashboard/sale_controller.dart';
 

@@ -21,7 +21,7 @@ class ItemsWidget extends GetView<CartBoardController> {
                 itemCount: rx.length,
                 itemBuilder: (context, index) {
                   var model = rx[index];
-                  final qController = TextEditingController(text: "1000");
+                  final qController = TextEditingController(text: "1");
                   return InkWell(
                       child: _ItemListTile(
                         itemId: 'ITM000${model.id}', itemName: model.name,
@@ -29,7 +29,7 @@ class ItemsWidget extends GetView<CartBoardController> {
                         itemPrice: model.pricePerUnit.format,
                         qController: qController,
                         addItem: () {
-                        controller.addItemToCart(model, int.tryParse(qController.text) ?? 0);
+                        controller.addItemToCart(model, double.tryParse(qController.text) ?? 0.0);
                       },)
                   );
                 },

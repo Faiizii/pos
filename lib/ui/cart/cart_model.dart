@@ -1,11 +1,11 @@
-import 'package:pos/databse/model/item_model.dart';
+import 'package:pos/database/model/item_model.dart';
 
 class CartModel {
 
   final Item item;
-  final int quantity;
+  final double quantity;
 
   CartModel({required this.item, required this.quantity, });
 
-  factory CartModel.fromItem(Item model, int qnt) => CartModel(item: model, quantity: qnt);
+  factory CartModel.fromItem(Item model, double qnt) => CartModel(item: model, quantity: qnt);
 }

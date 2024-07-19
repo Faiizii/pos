@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pos/ui/sale_dashboard/sale_repo.dart';
 
-import '../../databse/model/sale_model.dart';
+import '../../database/model/sale_model.dart';
 
 class SaleController extends GetxController {
   RxList<Sale> sale = RxList([]);

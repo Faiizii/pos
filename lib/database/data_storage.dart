@@ -1,7 +1,7 @@
-import 'package:pos/databse/table/category_table.dart';
-import 'package:pos/databse/table/item_table.dart';
-import 'package:pos/databse/table/sale_item_table.dart';
-import 'package:pos/databse/table/sale_table.dart';
+import 'package:pos/database/table/category_table.dart';
+import 'package:pos/database/table/item_table.dart';
+import 'package:pos/database/table/sale_item_table.dart';
+import 'package:pos/database/table/sale_table.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 
@@ -13,8 +13,6 @@ base class DataStorage {
       path,
       version: 2,
       onCreate: (db,version){
-        db.delete(SaleTable.createStatement);
-        db.delete(SaleItemTable.createStatement);
 
         db.execute(ItemTable.createStatement);
         db.execute(CategoryTable.createStatement);
@@ -22,8 +20,6 @@ base class DataStorage {
         db.execute(SaleItemTable.createStatement);
       },
       onUpgrade: (db, oldVersion, newVersion) {
-        db.delete(SaleTable.createStatement);
-        db.delete(SaleItemTable.createStatement);
 
         db.execute(ItemTable.createStatement);
         db.execute(CategoryTable.createStatement);

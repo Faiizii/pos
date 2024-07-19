@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos/databse/model/category_model.dart';
-import 'package:pos/databse/model/item_model.dart';
+import 'package:pos/database/model/category_model.dart';
+import 'package:pos/database/model/item_model.dart';
 import 'package:pos/ui/inventory/item_repo.dart';
 
 class InventoryController extends GetxController {

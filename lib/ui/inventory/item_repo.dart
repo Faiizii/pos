@@ -1,11 +1,10 @@
 
-import 'package:pos/databse/data_storage.dart';
-import 'package:pos/databse/table/category_table.dart';
-import 'package:pos/databse/table/item_table.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:pos/database/data_storage.dart';
+import 'package:pos/database/table/category_table.dart';
+import 'package:pos/database/table/item_table.dart';
 
-import '../../databse/model/category_model.dart';
-import '../../databse/model/item_model.dart';
+import '../../database/model/category_model.dart';
+import '../../database/model/item_model.dart';
 
 class ItemRepo {
   final DataStorage _db = DataStorage();

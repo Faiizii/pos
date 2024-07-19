@@ -1,4 +1,4 @@
-import 'package:pos/databse/table/category_table.dart';
+import 'package:pos/database/table/category_table.dart';
 
 class ItemTable {
   static const String tableName = "item";

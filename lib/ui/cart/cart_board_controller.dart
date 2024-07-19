@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:pos/databse/model/category_model.dart';
-import 'package:pos/databse/model/item_model.dart';
-import 'package:pos/databse/model/sale_model.dart';
+import 'package:pos/database/model/category_model.dart';
+import 'package:pos/database/model/item_model.dart';
+import 'package:pos/database/model/sale_model.dart';
 import 'package:pos/print/print_receipt.dart';
 import 'package:pos/ui/cart/cart_model.dart';
 import 'package:pos/ui/cart/sale_repo.dart';
@@ -43,7 +43,7 @@ class CartBoardController extends GetxController {
     items.value = await ItemRepo().getItems(categoryId);
   }
 
-  void addItemToCart(Item model, int qty){
+  void addItemToCart(Item model, double qty){
     cartItems.add(CartModel.fromItem(model, qty));
     totalBill.value = totalBill.value + (model.pricePerUnit * qty);
   }

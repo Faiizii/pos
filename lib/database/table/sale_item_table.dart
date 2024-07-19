@@ -1,6 +1,6 @@
-import 'package:pos/databse/table/category_table.dart';
-import 'package:pos/databse/table/item_table.dart';
-import 'package:pos/databse/table/sale_table.dart';
+import 'package:pos/database/table/category_table.dart';
+import 'package:pos/database/table/item_table.dart';
+import 'package:pos/database/table/sale_table.dart';
 
 class SaleItemTable {
   static const String tableName = "sale_item";
