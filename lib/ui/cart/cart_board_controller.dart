@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:pos/database/model/category_model.dart';
 import 'package:pos/database/model/item_model.dart';
-import 'package:pos/database/model/sale_model.dart';
+import 'package:pos/extensions/num_extension.dart';
 import 'package:pos/print/print_receipt.dart';
 import 'package:pos/ui/cart/cart_model.dart';
-import 'package:pos/ui/cart/sale_repo.dart';
+import 'package:pos/ui/cart/cart_sale_repo.dart';
 import 'package:pos/ui/inventory/item_repo.dart';
 
 enum PaymentType {
@@ -49,8 +49,8 @@ class CartBoardController extends GetxController {
   }
 
   void saveAndPrint() async {
-    int id = await SaleRepository().insertSale(paymentMethod: paymentType.value.name, discount: discount, saleAmount: totalBill.value, items: cartItems);
-    RecieptManager().printReceipt(cartItems,"RMS000$id", totalBill.value, discount, paymentType.value);
+    int id = await CartSaleRepo().insertSale(paymentMethod: paymentType.value.name, discount: discount, saleAmount: totalBill.value, items: cartItems);
+    RecieptManager().printReceipt(cartItems,id.orderID, totalBill.value, discount, paymentType.value);
   }
 
   void deleteCategory(int id) async {

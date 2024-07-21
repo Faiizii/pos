@@ -6,7 +6,7 @@ import 'package:pos/ui/cart/cart_model.dart';
 
 import '../../database/model/sale_model.dart';
 
-class SaleRepository {
+class CartSaleRepo {
   final DataStorage _dbHelper = DataStorage();
 
   // Insert a sale into the getDatabase()
@@ -20,7 +20,7 @@ class SaleRepository {
         'saleAmount': saleAmount,
         'customerName': "-",
         'customerPhoneNumber': "-",
-        'shopID': "SHP00001", // main shopID
+        'shopID': 1, // main shopID
       });
 
       for(CartModel model in items){
@@ -41,11 +41,11 @@ class SaleRepository {
   }
 
   // Retrieve all sales from the getDatabase()
-  Future<List<Sale>> getSales() async {
+  Future<List<SaleModel>> getSales() async {
     final db = await _dbHelper.getDatabase();
     final List<Map<String, dynamic>> maps = await db.query(SaleTable.tableName);
     var list = List.generate(maps.length, (i) {
-      return Sale.fromMap(maps[i]);
+      return SaleModel.fromMap(maps[i]);
     });
 
     await db.close();
@@ -53,7 +53,7 @@ class SaleRepository {
   }
 
   // Update a sale in the getDatabase()
-  Future<int> updateSale(Sale sale) async {
+  Future<int> updateSale(SaleModel sale) async {
     final db = await _dbHelper.getDatabase();
     var id = await db.update(
       SaleTable.tableName,

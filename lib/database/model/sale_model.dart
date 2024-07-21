@@ -1,4 +1,6 @@
-class Sale {
+import 'package:pos/database/model/sale_item_model.dart';
+
+class SaleModel {
   final int id;
   final String paymentMethod;
   final String? createdAt;
@@ -6,9 +8,10 @@ class Sale {
   final double saleAmount;
   final String? customerName;
   final String? customerPhoneNumber;
-  final String shopId;
+  final int shopId;
+  final List<SaleItemModel> items;
 
-  Sale({
+  SaleModel({
     required this.id,
     required this.paymentMethod,
     this.createdAt,
@@ -16,7 +19,8 @@ class Sale {
     required this.saleAmount,
     this.customerName,
     this.customerPhoneNumber,
-    this.shopId = "1",
+    this.shopId = 1,
+    required this.items
   });
 
   // Convert a Sale object into a Map object
@@ -32,9 +36,8 @@ class Sale {
   }
 
   // Convert a Map object into a Sale object
-  factory Sale.fromMap(Map<String, dynamic> map) {
-    print(map);
-    return Sale(
+  factory SaleModel.fromMap(Map<String, dynamic> map) {
+    return SaleModel(
       id: map['id'] ?? 0,
       paymentMethod: map['paymentMethod'],
       createdAt: map['created_at'],
@@ -42,7 +45,14 @@ class Sale {
       saleAmount: double.tryParse('${map['saleAmount'] ?? 0.0}') ?? 0.0,
       customerName: map['customerName'],
       customerPhoneNumber: map['customerPhoneNumber'],
-      shopId: map['shopID'],
+      shopId: int.tryParse('${map['shopID']}') ?? 0,
+      items: []
     );
   }
+
+  void updateItems(List<SaleItemModel> items){
+    this.items.clear();
+    this.items.addAll(items);
+  }
+
 }

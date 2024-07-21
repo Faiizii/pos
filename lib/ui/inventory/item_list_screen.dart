@@ -46,7 +46,7 @@ class ItemListingScreen extends GetView<InventoryController> {
                   itemCount: rx.length,
                   itemBuilder: (context, index) {
                     var model = rx[index];
-                    return _ItemListTile(itemId: '${index+1}', itemName: model.name, itemUnit: model.unit, itemPrice: model.pricePerUnit.toCurrency, callback: () {
+                    return _ItemListTile(itemId: (index+1).itemID, itemName: model.name, itemUnit: model.unit, itemPrice: model.pricePerUnit.toCurrency, callback: () {
                       controller.deleteItem(model.id);
                     },);
                   },
