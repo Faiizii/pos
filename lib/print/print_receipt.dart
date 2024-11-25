@@ -7,19 +7,19 @@ import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
 class RecieptManager {
-  void printReceipt(List<CartModel> list, String invoiceNo, double total, double discount,
-      PaymentType paymentType) async {
+  void printReceipt(List<CartModel> list, String invoiceNo, double total,
+      double discount, PaymentType paymentType) async {
     final doc = Document();
 
     double baseSize = 9; //heading will be multiply with 1.5
 
-    var image = await imageFromAssetBundle("images/logo.jpeg");
+    var image = await imageFromAssetBundle("images/logo.jpg");
     doc.addPage(Page(
         pageFormat: PdfPageFormat.roll80,
         build: (Context context) {
           return Column(children: [
             Image(image, width: baseSize * 16, height: baseSize * 16),
-            Text("Al Reem Meat Shop",
+            Text("Al Hatem Meat Shop",
                 style: TextStyle(fontSize: baseSize * 1.2)),
             Text("Al Murqeen Street 22, Madinatul Umal",
                 style: TextStyle(fontSize: baseSize * 1.2)),
@@ -53,20 +53,22 @@ class RecieptManager {
                   flex: 4,
                   child: Text("Product",
                       style: TextStyle(
-                        fontSize: baseSize,  fontWeight: FontWeight.bold
-                      ))),
+                          fontSize: baseSize, fontWeight: FontWeight.bold))),
               Expanded(
-                flex: 2,
-                  child:
-                      Text("Qyt.", style: TextStyle(fontSize: baseSize,  fontWeight: FontWeight.bold))),
+                  flex: 2,
+                  child: Text("Qyt.",
+                      style: TextStyle(
+                          fontSize: baseSize, fontWeight: FontWeight.bold))),
               Expanded(
                   flex: 2,
                   child: Text("Price",
-                      style: TextStyle(fontSize: baseSize, fontWeight: FontWeight.bold))),
+                      style: TextStyle(
+                          fontSize: baseSize, fontWeight: FontWeight.bold))),
               Expanded(
                   flex: 2,
                   child: Text("Amount",
-                      style: TextStyle(fontSize: baseSize,  fontWeight: FontWeight.bold))),
+                      style: TextStyle(
+                          fontSize: baseSize, fontWeight: FontWeight.bold))),
             ]),
             Divider(height: baseSize),
             SizedBox(height: baseSize * 2),
@@ -79,7 +81,7 @@ class RecieptManager {
                         child: Text(model.item.name,
                             style: TextStyle(fontSize: baseSize))),
                     Expanded(
-                      flex:2,
+                        flex: 2,
                         child: Text('${model.quantity}${model.item.unit}',
                             style: TextStyle(fontSize: baseSize))),
                     Expanded(
@@ -88,35 +90,44 @@ class RecieptManager {
                             style: TextStyle(fontSize: baseSize))),
                     Expanded(
                         flex: 2,
-                        child: Text((model.item.pricePerUnit * model.quantity).format,
+                        child: Text(
+                            (model.item.pricePerUnit * model.quantity).format,
                             style: TextStyle(fontSize: baseSize))),
                   ]);
                 },
                 itemCount: list.length),
             SizedBox(height: baseSize),
             Divider(height: baseSize),
-            Row( children: [
-              Expanded(child: Text("Sub Total (SAR)", style: TextStyle(fontSize: baseSize)),),
+            Row(children: [
+              Expanded(
+                child: Text("Sub Total (SAR)",
+                    style: TextStyle(fontSize: baseSize)),
+              ),
               Text(total.format, style: TextStyle(fontSize: baseSize)),
-              SizedBox(width: baseSize*3)
+              SizedBox(width: baseSize * 3)
             ]),
             SizedBox(height: baseSize),
-            if(discount > 0) ...[
-              Row( children: [
-                Expanded(child: Text("Discount (SAR)", style: TextStyle(fontSize: baseSize)),),
+            if (discount > 0) ...[
+              Row(children: [
+                Expanded(
+                  child: Text("Discount (SAR)",
+                      style: TextStyle(fontSize: baseSize)),
+                ),
                 Text(discount.format, style: TextStyle(fontSize: baseSize)),
-                SizedBox(width: baseSize*3)
+                SizedBox(width: baseSize * 3)
               ]),
               SizedBox(height: baseSize),
             ],
-            Row( children: [
-              Expanded(child: Text("Total Price (SAR)",
-                  style: TextStyle(
-                      fontSize: baseSize * 1.2, fontWeight: FontWeight.bold)),),
+            Row(children: [
+              Expanded(
+                child: Text("Total Price (SAR)",
+                    style: TextStyle(
+                        fontSize: baseSize * 1.2, fontWeight: FontWeight.bold)),
+              ),
               Text((total.round() - discount.round()).formatRound,
                   style: TextStyle(
                       fontSize: baseSize * 1.2, fontWeight: FontWeight.bold)),
-              SizedBox(width: baseSize*3)
+              SizedBox(width: baseSize * 3)
             ]),
             SizedBox(height: baseSize * 4),
             Row(children: [

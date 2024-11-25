@@ -20,11 +20,6 @@ base class DataStorage {
       },
       onUpgrade: (db, oldVersion, newVersion) {
 
-        db.execute("DROP TABLE IF EXISTS ${ItemTable.tableName}");
-        db.execute("DROP TABLE IF EXISTS ${CategoryTable.tableName}");
-        db.execute("DROP TABLE IF EXISTS ${SaleTable.tableName}");
-        db.execute("DROP TABLE IF EXISTS ${SaleItemTable.tableName}");
-
         db.execute(ItemTable.createStatement);
         db.execute(CategoryTable.createStatement);
         db.execute(SaleTable.createStatement);
